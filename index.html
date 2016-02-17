@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <title>The Flying Dutchman</title>
+
+    <!-- Custom styles for our webapp-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
+    <!-- Custom scripts for our webapp-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.cookie.js"></script>
+    <script type="text/javascript" src="offlineBeerInfo.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="shoppingcart.js"></script>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">The Flying Dutchman</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#nonalc">English</a></li>
+            <li id="userAnchor"></li>
+            <li><a href="signin.html">Sign In</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#beers">Beers</a></li>
+            <li><a href="#ciders">Ciders</a></li>
+            <li><a href="#wines">Wines</a></li>
+            <li><a href="#nonalc">Non-Alcohol</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div id="beerList" class="col-sm-3 col-md-3 sidebar-left">
+          <!-- Here comes the beer list from the JS code-->
+        </div>
+        <div id="shoppingcart" class="col-sm-3 col-md-3 sidebar-right">
+          <div class="title">
+            <h4 class="shopping-cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>    Shopping Cart</h2>
+          </div>
+
+          <!-- Here comes the beer list from the JS code-->
+          <ul class="nav nav-sidebar shopping-cart-item">
+            <li id="hintToRemove"><a>Drop your beers here!</a></li>
+          </ul>
+          <div class="total">
+            <h4>Total:</h4>
+          </div>
+
+        </div>
+        <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 main">
+          <h1 class="page-header"></h1>
+
+          <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="Pictures/pound.png" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4 id="p1">Price</h4>
+              <span class="text-muted"></span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="Pictures/procent.png" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4 id="p2">Alcohol</h4>
+              <span class="text-muted"></span>
+            </div>
+          <!--</div>
+          <div class="row placeholders">-->
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="Pictures/world.png" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4 id="p3">Origin</h4>
+              <span class="text-muted"></span>
+            </div>
+            <div  class="col-xs-6 col-sm-3 placeholder">
+              <img src="Pictures/drink.png" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4 id="p4">Type</h4>
+              <span class="text-muted"></span>
+            </div>
+          </div>
+
+          <div class="row placeholders">
+          <div class="col-xs-5 col-sm-4 input-group choose-quantity">
+            <input type="text" name="quant" class="form-control input-number" value="1" min="1" max="10">
+            <span class="input-group-btn">
+              <div class="btn-group-vertical" role="group">
+              <button type="button" class="btn btn-default btn-plus" field="quant" aria-label="Left Align">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-minus" disabled="disabled" field="quant" aria-label="Left Align">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+              </button>
+            </div>
+          </span>
+          <!--<span class="input-group-btn">
+          <button type="button" class="btn btn-default ok">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Add to cart
+          </button>
+          </span>-->
+          </div>
+          <!--<img src="Pictures/beer.png" id="beerpic"/>-->
+
+          <div class="col-xs-6 col-xs-offset-1 col-sm-7 col-sm-offset-1 dragMe" beerid="test" name="basic" draggable="true" price="10" quant="1">
+            <canvas id="canvas" width="320" height="100"></canvas>
+          </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+</html>

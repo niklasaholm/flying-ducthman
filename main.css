@@ -1,0 +1,218 @@
+@font-face {
+    font-family: Allura-Regular;
+    src: url(Allura-Regular.ttf);
+}
+
+
+body {
+  padding-top: 50px;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+.navbar-brand{
+  font-family: Allura-Regular;
+  font-size: 2.5em;
+  font-variant: bold;
+}
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar-left {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar-left {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    display: block;
+    padding: 20px;
+    padding-top: 0px; 
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    font-variant: bold;
+  }
+}
+
+.sidebar-right {
+  display: none;
+}
+@media (min-width: 768px) {  
+  .sidebar-right {
+    position: fixed;
+    top: 91px;
+    bottom: 42px;
+    right: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    padding-top: 0px; 
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    /*border-left: 2px solid #eee;*/
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+  text-decoration: none;
+  color:black;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #cbcbcb;;
+  font-weight: bold;
+}
+
+h4{
+font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#beerList > h4{
+  margin-top: 1px;
+  margin-left:-19px;
+  padding-top: 5px;
+  padding-left: 20px;
+  width: 120%;
+  height: 30px;
+  left:0;
+  top: 50px; 
+  background-color:#cbcbcb;
+}
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+  display: none;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+.choose-quantity{
+  padding-right: 10%;
+  padding-left: 10%;
+}
+
+.input-number{
+  height:68px;
+  font-size: 24px;
+}
+
+.ok {
+  height:68px;
+}
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.input-group[class*=col-]{
+  float:left;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.dragMe {
+  background: url("Pictures/blacktray.png") no-repeat center; 
+  background-size: cover;
+  cursor:move;
+}
+
+.beeritem{
+  font-weight: 400;
+  /*border-radius: 1em;
+  border:2px solid black;
+  margin:2px;*/
+}
+.beeritem{
+  /*background-color: #cbcbcb;*/
+}
+
+.shopping-cart{
+  /*padding-right: 10px;
+  padding-left: 10px;
+  text-decoration: none;
+  color:black;*/
+}
+
+.cartitem{
+  font-weight: 400;
+  /*border-radius: 1em;
+  border:2px solid black;
+  margin:2px;*/
+}
+
+#hintToRemove{
+  padding-bottom: 100%;
+  margin: 2px;
+  border: 2px grey dashed;
+}
+
+.title{
+  background-color: #cbcbcb;
+  padding-left: 5px;
+  position:fixed;
+  width: inherit;
+  height:40px;
+  top:50px;
+  right: 0;
+  z-index: 10;
+}
+
+.total{
+  background-color: #cbcbcb;
+  padding-left: 5px;
+  position:fixed;
+  width: inherit;
+  height:40px;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+}
