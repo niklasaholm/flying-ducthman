@@ -1,40 +1,29 @@
-function getInventory(){
-//var my_json;
-//var my_url="http://pub.jamaica-inn.net/fpdb/api.php?username=jorass&password=jorass&action=inventory_get"
-    //$.getJSON(my_url, function(json) {
-  //my_json = json;
-  //console.log(my_json.payload[0]);
-  /*var beers=[];
-  for(i = 0; i < my_json.payload.length; i++){
-    beers.push(my_json.payload[i].namn);
-  }*/
-  //beers=my_json.payload;
-  var list1 = '<h4 id="beers">Beers</h4><ul class="nav nav-sidebar">';
-  var list2 = '<h4 id="wines">Wines</h4><ul class="nav nav-sidebar">';
-  var list3 = '<h4 id="ciders">Ciders</h4><ul class="nav nav-sidebar">';
-  var list4 = '<h4 id="nonalc">Non-Alcoholic</h4><ul class="nav nav-sidebar">';
-  var beers=beerInfoList;
-  var beerInfo=beerInfoList2;
-   for (var i = 0; i < beerInfo.length; i++) { // Each sub-entry
-            list1+=sortBeverages(beers[i],beerInfo[i],"Ö");
-            list2+=sortBeverages(beers[i],beerInfo[i],"V");
-            list2+=sortBeverages(beers[i],beerInfo[i],"R");
-            list3+=sortBeverages(beers[i],beerInfo[i],"C");
-            list4+=sortBeverages(beers[i],beerInfo[i],"A");
-            //list1 += '<li><a id="'+beers[i].beer_id+'" class="beeritem"><div>'+beers[i].namn+'</div><div class="price" q="" p="">'+beerInfo[i].prisinklmoms+'£</div></a></li>';
-        }
-    list1 += '</ul>';
-    list2 += '</ul>';
-    list3 += '</ul>';
-    list4 += '</ul>';
-  $('#beerList').append(list1);
-  $('#beerList').append(list3);
-  $('#beerList').append(list2);
-  $('#beerList').append(list4);
+function getInventory(drinks, drinksInfo){
+  $('#beerList').empty();
+  var beers = '<h4 id="beers">Beers</h4><ul class="nav nav-sidebar">';
+  var wines = '<h4 id="wines">Wines</h4><ul class="nav nav-sidebar">';
+  var cider = '<h4 id="ciders">Ciders</h4><ul class="nav nav-sidebar">';
+  var noneAlc = '<h4 id="nonalc">Non-Alcoholic</h4><ul class="nav nav-sidebar">';
 
-  for (var i = 0; i < beerInfo.length; i++) { 
-    outOfStock(beers[i], beerInfo[i]);
-    //console.log(beerInfo[i].varugrupp);
+  for (var i = 0; i < drinksInfo.length; i++) { // Each sub-entry
+    beers += sortBeverages(drinks[i],drinksInfo[i],"Ö");
+    wines += sortBeverages(drinks[i],drinksInfo[i],"V");
+    wines += sortBeverages(drinks[i],drinksInfo[i],"R");
+    cider += sortBeverages(drinks[i],drinksInfo[i],"C");
+    noneAlc += sortBeverages(drinks[i],drinksInfo[i],"A");
+  }
+  beers += '</ul>';
+  wines += '</ul>';
+  cider += '</ul>';
+  noneAlc += '</ul>';
+  $('#beerList').append(beers);
+  $('#beerList').append(wines);
+  $('#beerList').append(cider);
+  $('#beerList').append(noneAlc);
+
+  for (var i = 0; i < drinksInfo.length; i++) {
+    outOfStock(drinks[i], drinksInfo[i]);
+    isBio(drinks[i], drinksInfo[i]);
   }
 
 }
@@ -61,7 +50,6 @@ function outOfStock(b, info){
 }
 
 function isBio(b,info){
-  //console.log(b)
   if (info.ekologisk==1){
       div=$("#"+b.beer_id)
       div.css("background","url('Pictures/eco.png') no-repeat");
@@ -92,7 +80,7 @@ var my_url="http://pub.jamaica-inn.net/fpdb/api.php?username=jorass&password=jor
 
 
 $(document).ready(function(){
-  getInventory();
+  getInventory(beerInfoList, beerInfoList2);
   if (getCookie("username")) {
     $("#userAnchor").text(getCookie("username") + " | "+ getCookie("balance"))
   };
@@ -137,4 +125,33 @@ function getCookie(key) {
     return keyValue ? keyValue[2] : null;
 }
 
+function filter() {
+  eco = document.getElementById("eco").checked;
+  kosch = document.getElementById("kosch").checked;
+  filterDrinks(eco, kosch);
+}
 
+function filterDrinks(eco, kosch) {
+  var drinksInfo = [];
+  var drinks = [];
+  drinksInfo = beerInfoList2.filter(function(item) {
+    var state = true;
+    if(eco) {
+      if(item.ekologisk != 1) { state = false; }
+    }
+    if(kosch) {
+      if(item.koscher != 1) { state = false; }
+    }
+    return state;
+  });
+
+  for (var i = 0; i < drinksInfo.length; i++) {
+    for (var j = 0; j < beerInfoList.length; j++) {
+      if (drinksInfo[i].nr == beerInfoList[j].beer_id) {
+        drinks.push(beerInfoList[j]);
+      }
+    }
+  }
+  getInventory(drinks, drinksInfo)
+
+}

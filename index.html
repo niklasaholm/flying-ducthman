@@ -49,10 +49,35 @@
             <li><a href="#ciders">Ciders</a></li>
             <li><a href="#wines">Wines</a></li>
             <li><a href="#nonalc">Non-Alcohol</a></li>
+            <li><a href="#beers" data-toggle="modal" data-target="#myModal">Filter</a>
+
           </ul>
         </div>
       </div>
     </nav>
+
+    <!-- Modal (filter popup) -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            Ecological<input type="checkbox" id="eco">
+            Koscher<input type="checkbox" id="kosch">
+          </div>
+          <div class="modal-footer">
+            <form action="">
+            </form>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" onclick="filter()" class="btn btn-primary" data-dismiss="modal">Filter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div class="container-fluid">
       <div class="row">
@@ -132,8 +157,8 @@
     </div>
   </body>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </html>
