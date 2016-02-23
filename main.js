@@ -23,7 +23,6 @@ function getInventory(drinks, drinksInfo){
 
   for (var i = 0; i < drinksInfo.length; i++) {
     outOfStock(drinks[i], drinksInfo[i]);
-    isBio(drinks[i], drinksInfo[i]);
   }
 }
 
@@ -68,8 +67,8 @@ function getPayementInfo(userID){
   for(var t = 0; t < transaction.length;t++){
   list+='<li><a><div>Nr: '+transaction[t].transaction_id+'</div><div>Date: '+transaction[t].timestamp.substring(0,10)+'<span class="spanRight">Time: '+transaction[t].timestamp.substring(11,transaction[t].timestamp.length)+'</span></div><div>Total: '+transaction[t].amount+'</div></a></li>';
   }
-  list+='</ul>'; 
-  $("#payementList").append(list); 
+  list+='</ul>';
+  $("#payementList").append(list);
   });
 }
 
@@ -92,7 +91,7 @@ var my_url="http://pub.jamaica-inn.net/fpdb/api.php?username=jorass&password=jor
 });
 }
 
-//Checks if a user is logged in or not 
+//Checks if a user is logged in or not
 function checkLogin(){
   var customer=getCookie("username");
   var type=getCookie("type");
@@ -155,8 +154,3 @@ $(document).on('click', '.beeritem', function () {
     $(".dragMe").attr('quant',$(".input-number").val());
   }
 });
-
-
-
-
-

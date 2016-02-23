@@ -1,9 +1,3 @@
-function filterBeers() {
-  eco = document.getElementById("eco").checked;
-  kosch = document.getElementById("kosch").checked;
-  filterDrinks(eco, kosch);
-}
-
 function filterDrinks(eco, kosch) {
   var drinksInfo = [];
   var drinks = [];
