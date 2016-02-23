@@ -3,7 +3,6 @@
     src: url(Allura-Regular.ttf);
 }
 
-
 body {
   padding-top: 50px;
   font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -21,8 +20,11 @@ body {
   font-size: 2.5em;
   font-variant: bold;
 }
+
+/****************/
+
 /*
- * Sidebar
+ * Sidebar left (BeerList)
  */
 
 /* Hide for mobile, show later */
@@ -47,6 +49,25 @@ body {
   }
 }
 
+#beerList > h4{
+  margin-top: 1px;
+  margin-left:-19px;
+  padding-top: 5px;
+  padding-left: 20px;
+  width: 120%;
+  height: 30px;
+  left:0;
+  top: 50px; 
+  background-color:#cbcbcb;
+}
+
+/***************/
+
+/*
+ * Sidebar right (ShoppingCart)
+ */
+
+/* Hide for mobile, show later */
 .sidebar-right {
   display: none;
 }
@@ -54,7 +75,7 @@ body {
   .sidebar-right {
     position: fixed;
     top: 91px;
-    bottom: 42px;
+    bottom: 82px;
     right: 0;
     z-index: 1000;
     display: block;
@@ -67,7 +88,65 @@ body {
   }
 }
 
-/* Sidebar navigation */
+.shopping-cart{
+  /*padding-right: 10px;
+  padding-left: 10px;
+  text-decoration: none;
+  color:black;*/
+}
+.cartitem{
+  font-weight: 400;
+  /*border-radius: 1em;
+  border:2px solid black;
+  margin:2px;*/
+}
+
+#hintToRemove{
+  padding-bottom: 100%;
+  margin: 2px;
+  border: 2px grey dashed;
+}
+
+.title{
+  background-color: #cbcbcb;
+  padding-top: 10px;
+  padding-left: 5px;
+  position:fixed;
+  width: inherit;
+  height:40px;
+  top:50px;
+  right: 0;
+  z-index: 10;
+}
+
+
+.cartFooter{
+  background-color: #cbcbcb;
+  padding-top: 10px;
+  padding-left: 5px;
+  position:fixed;
+  width: inherit;
+  height:80px;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.total{
+  height:30px;
+}
+
+.undoRedo{
+  height:50px;
+}
+
+/**************/
+
+
+/* 
+ *Sidebar navigation 
+ */
+
 .nav-sidebar {
   margin-right: -21px; /* 20px padding + 1px border */
   margin-bottom: 20px;
@@ -92,20 +171,10 @@ h4{
 font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-#beerList > h4{
-  margin-top: 1px;
-  margin-left:-19px;
-  padding-top: 5px;
-  padding-left: 20px;
-  width: 120%;
-  height: 30px;
-  left:0;
-  top: 50px; 
-  background-color:#cbcbcb;
-}
+/************/
 
 /*
- * Main content
+ * Main content (BeerInfo)
  */
 
 .main {
@@ -120,6 +189,7 @@ font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .main .page-header {
   margin-top: 0;
+  font-size: 2em;
 }
 
 .choose-quantity{
@@ -137,7 +207,7 @@ font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 /*
- * Placeholder dashboard ideas
+ * Beer Information
  */
 
 .input-group[class*=col-]{
@@ -175,44 +245,32 @@ font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
   /*background-color: #cbcbcb;*/
 }
 
-.shopping-cart{
-  /*padding-right: 10px;
-  padding-left: 10px;
-  text-decoration: none;
-  color:black;*/
+.modal-dialog {
+    width: 300px;
 }
 
-.cartitem{
-  font-weight: 400;
-  /*border-radius: 1em;
-  border:2px solid black;
-  margin:2px;*/
+.modalLists{
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-#hintToRemove{
-  padding-bottom: 100%;
-  margin: 2px;
-  border: 2px grey dashed;
+.spanRight{
+  float:right;
+  padding-right: 10px;
 }
 
-.title{
-  background-color: #cbcbcb;
-  padding-left: 5px;
-  position:fixed;
-  width: inherit;
-  height:40px;
-  top:50px;
-  right: 0;
-  z-index: 10;
+.spanLeft{
+  float:left;
 }
 
-.total{
-  background-color: #cbcbcb;
-  padding-left: 5px;
-  position:fixed;
-  width: inherit;
-  height:40px;
-  bottom: 0;
-  right: 0;
-  z-index: 10;
+#buy, #undo, #redo{
+  padding: 10px;
 }
+
+#totalBuyList{
+  border-top: 1px black solid;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+

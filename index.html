@@ -8,18 +8,23 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="shortcut icon" HREF="Pictures/favicon.ico">
 
     <title>The Flying Dutchman</title>
 
     <!-- Custom styles for our webapp-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
+    <link href="signin.css" rel="stylesheet">
     <!-- Custom scripts for our webapp-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script type="text/javascript" src="jquery.cookie.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="cookieHandler.js"></script>
     <script type="text/javascript" src="offlineBeerInfo.js"></script>
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="shoppingcart.js"></script>
+    <script type="text/javascript" src="signin.js"></script>
+    <script type="text/javascript" src="filter.js"></script>
   </head>
 
   <body>
@@ -37,47 +42,32 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#nonalc">English</a></li>
-            <li id="userAnchor"></li>
-            <li><a href="signin.html">Sign In</a></li>
+            <li><a href="#filter" data-toggle="modal" data-target="#filterModal">Filter</a>
+            <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" aria-controls="navbar">
+    <span class="glyphicon glyphicon-user"></span> 
+    <span class="glyphicon glyphicon-menu-down"></span></a>
+    <ul class="dropdown-menu" >
+      <li><a id="userType" data-toggle="modal" data-target="#payementInfo">Guest</a></li>
+      <li class="divider"></li>
+      <li><a class="hide-if-out" id="userName"></a></li>
+      <li><a class="hide-if-out" id="userBalance"></a></li>
+      <li class="divider hide-if-out"></li>
+      <li><a id="inout" status="OUT" data-toggle="modal" data-target="#loginModal">Sign In</a></li>
+    </ul>
+  </li>
+            <!--<li><a id="inout" status="OUT" >Sign In</a></li>-->
+            <!--<li><a id="userAnchor"></a></li>-->
           </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-left">
             <li><a href="#beers">Beers</a></li>
             <li><a href="#ciders">Ciders</a></li>
             <li><a href="#wines">Wines</a></li>
             <li><a href="#nonalc">Non-Alcohol</a></li>
-            <li><a href="#beers" data-toggle="modal" data-target="#myModal">Filter</a>
-
           </ul>
         </div>
       </div>
     </nav>
-
-    <!-- Modal (filter popup) -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-          </div>
-          <div class="modal-body">
-            Ecological<input type="checkbox" id="eco">
-            Koscher<input type="checkbox" id="kosch">
-          </div>
-          <div class="modal-footer">
-            <form action="">
-            </form>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" onclick="filter()" class="btn btn-primary" data-dismiss="modal">Filter</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
 
     <div class="container-fluid">
       <div class="row">
@@ -89,12 +79,27 @@
             <h4 class="shopping-cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>    Shopping Cart</h2>
           </div>
 
-          <!-- Here comes the beer list from the JS code-->
+          <!-- Here comes beers added to the shopping cart-->
           <ul class="nav nav-sidebar shopping-cart-item">
             <li id="hintToRemove"><a>Drop your beers here!</a></li>
           </ul>
-          <div class="total">
-            <h4>Total:</h4>
+          <div class="cartFooter">
+            <div class="total">
+            <span class="spanLeft"><h4 id="TOTAL">Total:</h4></span>
+            </div>
+            <div class="undoRedo">
+            <span class="spanLeft">
+              <button id="undo" disabled="disabled" onclick="undo()">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+              </button>
+            <button id="redo" disabled="disabled" onclick="redo()">
+              <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+            </button>
+            </span>
+            <span class="spanRight">
+              <button id="buy" onclick="beforeBuy();" data-toggle="modal" data-target="#buyBeers" disabled="disabled">BUY <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+            </span>
+          </div>
           </div>
 
         </div>
@@ -155,10 +160,99 @@
         </div>
       </div>
     </div>
+
+
+    <!-- Modal (filter popup) -->
+    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            Ecological<input type="checkbox" id="eco">
+            Koscher<input type="checkbox" id="kosch">
+          </div>
+          <div class="modal-footer">
+            <form action="">
+            </form>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" onclick="filterBeers()" class="btn btn-primary" data-dismiss="modal">Filter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+     <!-- Modal (login popup) -->
+      <div class="modal fade" id="loginModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 class="modal-title" id="myModalLabel">Sign In:</h3>
+        </div>
+        <div>
+        <form class="form-signin">
+        <!--<h2 class="form-signin-heading">Please sign in</h2>-->
+          <label for="name" class="sr-only">Name</label>
+          <input type="name" id="name" class="form-control signin" placeholder="Username" required autofocus>
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" id="pwd" class="form-control signin" placeholder="Password" required>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button id="confirmLogIn" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- Modal (payement info popup) -->
+  <div class="modal fade" id="payementInfo" role="dialog" aria-labelledby="payementLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 class="modal-title" id="payementLabel">Payement history:
+          </h3>
+        </div>
+         <div class="modalLists" id="payementList">
+
+         </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- Modal (buy beer popup) -->
+  <div class="modal fade" id="buyBeers" role="dialog" aria-labelledby="buyLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 class="modal-title" id="buyLabel">Transaction:
+          </h3>
+        </div>
+        <div class="modalLists">
+         <ul class="modalLists" id="buyList">
+
+         </ul>
+         <div class="modalLists" id="totalBuyList">
+
+         </div>
+       </div>
+      </div>
+    </div>
+  </div>
+  
   </body>
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
 </html>

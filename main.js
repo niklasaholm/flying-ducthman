@@ -25,7 +25,6 @@ function getInventory(drinks, drinksInfo){
     outOfStock(drinks[i], drinksInfo[i]);
     isBio(drinks[i], drinksInfo[i]);
   }
-
 }
 
 function sortBeverages(b,info,type){
@@ -50,12 +49,28 @@ function outOfStock(b, info){
 }
 
 function isBio(b,info){
+  //console.log(b)
   if (info.ekologisk==1){
       div=$("#"+b.beer_id)
       div.css("background","url('Pictures/eco.png') no-repeat");
       div.css("background-size","36px 22px");
       div.css("background-position","85% 50%");
   }
+}
+
+function getPayementInfo(userID){
+  var my_json;
+  var my_url="http://pub.jamaica-inn.net/fpdb/api.php?username="+userID+"&password="+userID+"&action=payments_get";
+    $.getJSON(my_url, function(json) {
+  my_json = json;
+  transaction=my_json.payload;
+  var list = '<ul class="nav nav-sidebar">';
+  for(var t = 0; t < transaction.length;t++){
+  list+='<li><a><div>Nr: '+transaction[t].transaction_id+'</div><div>Date: '+transaction[t].timestamp.substring(0,10)+'<span class="spanRight">Time: '+transaction[t].timestamp.substring(11,transaction[t].timestamp.length)+'</span></div><div>Total: '+transaction[t].amount+'</div></a></li>';
+  }
+  list+='</ul>'; 
+  $("#payementList").append(list); 
+  });
 }
 
 function getBeerInfo(id){
@@ -77,26 +92,53 @@ var my_url="http://pub.jamaica-inn.net/fpdb/api.php?username=jorass&password=jor
 });
 }
 
-
+//Checks if a user is logged in or not 
+function checkLogin(){
+  var customer=getCookie("username");
+  var type=getCookie("type");
+  //console.log(customer);
+  if (customer!="") {
+    if(type=="admin"){
+      //TODO
+    }
+    $("#userType").text(type);
+    $("#userType").append('<span class="glyphicon glyphicon-menu-hamburger spanRight"></span>');
+    $("#userName").text(customer);
+    $("#userBalance").text(getCookie("balance"));
+    $("#inout").text("Sign Out");
+    $("#inout").attr("status","IN");
+    $(".hide-if-out").show();
+    getPayementInfo(customer);
+  }else{
+    $("#userType").text("Guest");
+    $("#userName").text("");
+    $("#userBalance").text("");
+    $(".hide-if-out").hide();
+  }
+}
 
 $(document).ready(function(){
   getInventory(beerInfoList, beerInfoList2);
-  if (getCookie("username")) {
-    $("#userAnchor").text(getCookie("username") + " | "+ getCookie("balance"))
-  };
+  checkLogin();
   console.log("Page Loaded");
 });
 
-/*$(document).on('click', 'a', function () {
-    $("a").removeClass("active");
-    $(this).addClass("active");
-});*/
+$(document).on('click', '#inout', function () {
+    if($("#inout").attr("status")=="IN"){
+    setCookie("username","",-1);
+    $("#inout").text("Sign In");
+    $("#userType").text("");
+    $("#userBalance").text("");
+    $(".hide-if-out").hide();
+    window.location.reload();
+    }else{
+      //$('#loginModal').modal('toogle');
+      //window.location.href=("signin.html");
+    }
+});
 
 $(document).on('click', '.beeritem', function () {
     drawBeer(1);
-    /*$("a").removeClass("active");
-    $(this).addClass("active");
-    console.log(this);*/
     getBeerInfo(this.id);
     if($(this).find(".price").attr("q")<0){
       $(".input-number").val("Sold Out");
@@ -114,44 +156,7 @@ $(document).on('click', '.beeritem', function () {
   }
 });
 
-function setCookie(key, value) {
-  var expires = new Date();
-  expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
-  document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
-}
 
-function getCookie(key) {
-    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
-    return keyValue ? keyValue[2] : null;
-}
 
-function filter() {
-  eco = document.getElementById("eco").checked;
-  kosch = document.getElementById("kosch").checked;
-  filterDrinks(eco, kosch);
-}
 
-function filterDrinks(eco, kosch) {
-  var drinksInfo = [];
-  var drinks = [];
-  drinksInfo = beerInfoList2.filter(function(item) {
-    var state = true;
-    if(eco) {
-      if(item.ekologisk != 1) { state = false; }
-    }
-    if(kosch) {
-      if(item.koscher != 1) { state = false; }
-    }
-    return state;
-  });
 
-  for (var i = 0; i < drinksInfo.length; i++) {
-    for (var j = 0; j < beerInfoList.length; j++) {
-      if (drinksInfo[i].nr == beerInfoList[j].beer_id) {
-        drinks.push(beerInfoList[j]);
-      }
-    }
-  }
-  getInventory(drinks, drinksInfo)
-
-}

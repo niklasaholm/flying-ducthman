@@ -45,48 +45,69 @@ $(document).on('click', '.btn-minus', function(e){
         }
     }
 });
- 
+
+var oldList=[];
+var newList=[];
+
 var shoppingcartList = []; //Global variable used to keep track of the ordered beers.
 var total=0; //keeps track of the total.
 
 //Makes the dropzone droppable by preventing default behaviour.
 $(document).on("dragover","#shoppingcart",function(e){
     e.preventDefault();
-  });
+});
+
+
+
+//Changes the opacity of an element 
+function changeOpacity(item, val){
+    item.css("opacity",val);
+}
 
 /*Handles the drag of the tray with the beers. Animates a change of 
 color as a visual hint of where the dropzone is located. */
 $(document).on("dragstart",".dragMe",function(e){
     e.originalEvent.dataTransfer.setData("Text",e.target.id);
-    $("#beerList").css("opacity","0.4");
-    $(".main").css("opacity","0.4");
+    changeOpacity($("#beerList"),"0.4");
+    changeOpacity($(".main"),"0.4");
     $("#shoppingcart").css("background","#cbcbcb");
   });
+
 
 //Handles the drop of beers. 
 $(document).on("drop","#shoppingcart",function(e){
     e.preventDefault();
     var id=e.originalEvent.dataTransfer.getData("Text");
-    var name=$('#'+id+".dragMe").attr('name');
+    //var name=$('#'+id+".dragMe").attr('name');
     var price=$('#'+id+".dragMe").attr('price');
     var quant=$('#'+id+".dragMe").attr('quant');
 
-    if ($.inArray(name[0]+""+id,shoppingcartList)>-1){
-        item=$("#"+name[0]+""+id);
-        updateCart(item,quant);
-    }else{
-        addToCart(id,name,price,quant);
-    }
+    addToCart(id,price,quant);
     //removes the hint (only done once)
     $("#hintToRemove").remove();
 });
 
 $(document).on("dragend",".dragMe",function(e){
-    $("#beerList").css("opacity","1");
-    $(".main").css("opacity","1");
+    changeOpacity($("#beerList"),"1");
+    changeOpacity($(".main"),"1");
     $("#shoppingcart").css("background","#f5f5f5");
     //$("#shoppingcart").css("border","none");
 });
+
+function newToCart(id,price,quant){
+    var item = $('.beeritem#'+id).parent().clone( true );
+    item.find("#"+id).attr("class","cartitem");
+    item.find("#"+id).attr("id","Beer"+id);
+    var itemToChange=item.find(".price");
+    itemToChange.text(quant+" x "+price+" £ = " + (quant*price).toFixed(2)+" £");
+    itemToChange.attr("q",quant);
+    itemToChange.attr("p",price);
+    $(".shopping-cart-item").append(item);
+    shoppingcartList.push("Beer"+id);
+    total+=1*(quant*price);
+    $("#TOTAL").text("Total: "+total.toFixed(2)+ " £");
+    $("#"+id).focus();
+}
 
 //When a beer that is already in the cart is dropped, 
 //the quantity is increased and the price is updated. 
@@ -99,38 +120,80 @@ function updateCart(item, quant){
     itemToChange.attr("q",newQ);
     itemToChange.text((newQ)+" x "+price+" £ = " + (newQ*price).toFixed(2)+" £");
     total+=1*(quant*price);
-    $(".total > h4").text("Total: "+total.toFixed(2)+ " £");
-    $("#"+id).focus();
+    $("#TOTAL").text("Total: "+total.toFixed(2)+ " £");
+    item.focus();
 }
 
 //add a beer to the cart. Sets its price and quantity. 
-function addToCart(id,name,price,quant){
-    var item = $('.beeritem#'+id).parent().clone( true );
-    item.find("#"+id).attr("class","cartitem");
-    item.find("#"+id).attr("id",name[0]+""+id);
-    var itemToChange=item.find(".price");
-    itemToChange.text(quant+" x "+price+" £ = " + (quant*price).toFixed(2)+" £");
-    itemToChange.attr("q",quant);
-    itemToChange.attr("p",price);
-    $(".shopping-cart-item").append(item);
-    shoppingcartList.push(name[0]+""+id);
-    total+=1*(quant*price);
-    $(".total > h4").text("Total: "+total.toFixed(2)+ " £");
-    $("#"+id).focus();
+function addToCart(id,price,quant){
+    oldList.push({"id":id,"price":price,"quant":quant});
+    $("#undo").attr("disabled",false);
+    $("#buy").attr("disabled",false);
+    if ($.inArray("Beer"+id,shoppingcartList)>-1){
+        item=$("#Beer"+id);
+        updateCart(item,quant);
+    }else{
+        newToCart(id,price,quant);
+    }
 }
 
+//deletes an item from cart
+function deleteFromCart(item){
+    item.remove();
+    shoppingcartList.pop();
+}
+
+//removes the specified amout of a beer item from cart. 
+//deletes it if 0.
+function removeFromCart(id, price, quant){
+    item=$("#Beer"+id);
+    itemQuant=item.find(".price").attr("q");
+    console.log(itemQuant)
+    if (1*itemQuant - 1*quant <=0){
+        total+=-(1*(quant*price));
+        $("#TOTAL").text("Total: "+total.toFixed(2)+ " £");
+        deleteFromCart(item);
+    }else{
+        updateCart(item, -(1*quant));
+    }
+}
+
+function undo(){
+    $("#redo").attr("disabled",false)
+    undoItem = oldList.pop();
+    if(oldList.length==0){
+        $("#undo").attr("disabled",true)
+        $("#buy").attr("disabled",true)
+    }
+    newList.push(undoItem);
+    removeFromCart(undoItem.id, undoItem.price, undoItem.quant);
+}
+
+function redo(){ 
+    redoItem = newList.pop();
+    if(newList.length==0){
+    $("#redo").attr("disabled",true)
+    }
+    addToCart(redoItem.id, redoItem.price, redoItem.quant);
+}
 
 
 //draw on canvas for nice animations
 function drawBeer(x){
-var myCanvas = document.getElementById('canvas');
-var ctx = myCanvas.getContext('2d');
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-var img = new Image;
-img.src ="Pictures/beer.png";
-for (i=0;i<x;i++){
-ctx.drawImage(img,i*25,0, 75, 75 * img.height / img.width);
+    var myCanvas = document.getElementById('canvas');
+    var ctx = myCanvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var img = new Image;
+    img.src ="Pictures/beer.png";
+    for (i=0;i<x;i++){
+        ctx.drawImage(img,i*25,0, 75, 75 * img.height / img.width);
+    }
 }
+
+function beforeBuy(){
+    $("#buyList").html("");
+    $("#buyList").html($(".shopping-cart-item").clone());
+    $("#totalBuyList").html($("#TOTAL").clone());
 }
 
 
