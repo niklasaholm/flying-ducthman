@@ -23,6 +23,7 @@ function filterDrinks(eco, kosch) {
 }
 
 function searchDrinks(str) {
+  document.getElementById("searchBox").value = "";
   drinks = [];
   drinksInfo = beerInfoList2.filter(function(item) {
     if (item.namn.toLowerCase().indexOf(str.toLowerCase()) > -1) {
@@ -40,4 +41,9 @@ function searchDrinks(str) {
   }
 
   getInventory(drinks, drinksInfo);
+}
+
+
+function fuck() {
+  alert("fuck");
 }
