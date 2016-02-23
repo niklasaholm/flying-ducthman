@@ -59,15 +59,24 @@
             <!--<li><a id="inout" status="OUT" >Sign In</a></li>-->
             <!--<li><a id="userAnchor"></a></li>-->
           </ul>
+
           <ul class="nav navbar-nav navbar-left">
             <li><a href="#beers">Beers</a></li>
             <li><a href="#ciders">Ciders</a></li>
             <li><a href="#wines">Wines</a></li>
             <li><a href="#nonalc">Non-Alcohol</a></li>
           </ul>
-        </div>
+            <form class="navbar-form navbar-right">
+              <input id="searchBox" type="text" class="form-control" placeholder="Search..."></input>
+              <button type="button" onclick="searchDrinks(searchBox.value)" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+            </form>
       </div>
     </nav>
+<!--
+    <form class="navbar-form navbar-right">
+      <input id="searchBox" onkeydown="searchDrink(this)" type="text" class="form-control" placeholder="Search...">
+    </form>
+-->
 
     <div class="container-fluid">
       <div class="row">
