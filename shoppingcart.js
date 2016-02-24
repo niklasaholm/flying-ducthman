@@ -1,5 +1,5 @@
 // This button will increase the number of beers (no max at the moment)
-$(document).on('click', '.btn-plus', function(e){
+$(document).on('click touchstart', '.btn-plus', function(e){
         // Stop acting like a button
         e.preventDefault();
         // Get the field name
@@ -21,7 +21,7 @@ $(document).on('click', '.btn-plus', function(e){
         }
     });
 // This button will decrease the number of beers until 1
-$(document).on('click', '.btn-minus', function(e){
+$(document).on('click touchstart', '.btn-minus', function(e){
         // Stop acting like a button
         e.preventDefault();
         // Get the field name
@@ -83,6 +83,23 @@ $(document).on("drop","#shoppingcart",function(e){
     var quant=$('#'+id+".dragMe").attr('quant');
 
     addToCart(id,price,quant);
+    //clears the redo function
+    $("#redo").attr("disabled",true)
+    newList.length = 0;
+    //removes the hint (only done once)
+    $("#hintToRemove").remove();
+});
+
+$(document).on("click touchstart","#addToCartSmallScreen",function(e){
+    var id = $(".dragMe").attr("id");
+    console.log(id);
+    var price=$('#'+id+".dragMe").attr('price');
+    var quant=$('#'+id+".dragMe").attr('quant');
+
+    addToCart(id,price,quant);
+    //clears the redo function
+    $("#redo").attr("disabled",true)
+    newList.length = 0;
     //removes the hint (only done once)
     $("#hintToRemove").remove();
 });
@@ -192,8 +209,21 @@ function drawBeer(x){
 
 function beforeBuy(){
     $("#buyList").html("");
+    $("#withdrawFromBalance").html("");
+    $("#newBalance").html("");
     $("#buyList").html($(".shopping-cart-item").clone());
     $("#totalBuyList").html($("#TOTAL").clone());
+    if($("#userBalance").text()!=""){
+        $("#finalizeTransac").attr("disabled",false);
+        var balance= $("#userBalance").html();
+        $("#withdrawFromBalance").html("Balance: "+balance+ " £");
+
+        $("#newBalance").html("New Balance: "+ (1*balance-1*total) +" £");
+    }else{
+        $("#finalizeTransac").attr("disabled",true);
+        $("#withdrawFromBalance").html("Please login to continue...");
+    }
+
 }
 
 

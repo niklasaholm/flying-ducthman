@@ -23,6 +23,7 @@ function getInventory(drinks, drinksInfo){
 
   for (var i = 0; i < drinksInfo.length; i++) {
     outOfStock(drinks[i], drinksInfo[i]);
+    isBio(drinks[i], drinksInfo[i]);
   }
 }
 
@@ -67,8 +68,8 @@ function getPayementInfo(userID){
   for(var t = 0; t < transaction.length;t++){
   list+='<li><a><div>Nr: '+transaction[t].transaction_id+'</div><div>Date: '+transaction[t].timestamp.substring(0,10)+'<span class="spanRight">Time: '+transaction[t].timestamp.substring(11,transaction[t].timestamp.length)+'</span></div><div>Total: '+transaction[t].amount+'</div></a></li>';
   }
-  list+='</ul>';
-  $("#payementList").append(list);
+  list+='</ul>'; 
+  $("#payementList").append(list); 
   });
 }
 
@@ -91,7 +92,7 @@ var my_url="http://pub.jamaica-inn.net/fpdb/api.php?username=jorass&password=jor
 });
 }
 
-//Checks if a user is logged in or not
+//Checks if a user is logged in or not 
 function checkLogin(){
   var customer=getCookie("username");
   var type=getCookie("type");
@@ -122,7 +123,7 @@ $(document).ready(function(){
   console.log("Page Loaded");
 });
 
-$(document).on('click', '#inout', function () {
+$(document).on('click touchstart', '#inout', function () {
     if($("#inout").attr("status")=="IN"){
     setCookie("username","",-1);
     $("#inout").text("Sign In");
@@ -136,7 +137,16 @@ $(document).on('click', '#inout', function () {
     }
 });
 
-$(document).on('click', '.beeritem', function () {
+$(document).on('click touchstart', '.beeritem', function () {
+  console.log($(document).width());
+    if($(document).width()<768){
+      $("#beerList").collapse("hide");
+      $(".dragMe").hide();
+      $("#addToCartSmallScreen").show();
+    }else{
+    $(".dragMe").show();
+    $("#addToCartSmallScreen").hide();
+  }
     drawBeer(1);
     getBeerInfo(this.id);
     if($(this).find(".price").attr("q")<0){
@@ -154,3 +164,8 @@ $(document).on('click', '.beeritem', function () {
     $(".dragMe").attr('quant',$(".input-number").val());
   }
 });
+
+
+
+
+

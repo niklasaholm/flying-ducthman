@@ -4,6 +4,10 @@
 }
 
 body {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */      
   padding-top: 50px;
   font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
@@ -71,6 +75,38 @@ body {
 .sidebar-right {
   display: none;
 }
+.title{
+  display:none;
+}
+@media (min-width: 768px) {  
+.title{
+  display: block;
+  background-color: #cbcbcb;
+  padding-top: 10px;
+  padding-left: 5px;
+  position:fixed;
+  height:40px;
+  top:50px;
+  right: 0;
+  z-index: 10;
+}
+}
+.cartFooter{
+  display:none;
+}
+@media (min-width: 768px) {  
+.cartFooter{
+  display: block;
+  background-color: #cbcbcb;
+  padding-top: 10px;
+  padding-left: 5px;
+  position:fixed;
+  height:80px;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+}
+}
 @media (min-width: 768px) {  
   .sidebar-right {
     position: fixed;
@@ -107,30 +143,7 @@ body {
   border: 2px grey dashed;
 }
 
-.title{
-  background-color: #cbcbcb;
-  padding-top: 10px;
-  padding-left: 5px;
-  position:fixed;
-  width: inherit;
-  height:40px;
-  top:50px;
-  right: 0;
-  z-index: 10;
-}
 
-
-.cartFooter{
-  background-color: #cbcbcb;
-  padding-top: 10px;
-  padding-left: 5px;
-  position:fixed;
-  width: inherit;
-  height:80px;
-  bottom: 0;
-  right: 0;
-  z-index: 10;
-}
 
 .total{
   height:30px;
@@ -263,11 +276,15 @@ font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
   float:left;
 }
 
+.addPadding{
+  padding: 10px;
+}
+
 #buy, #undo, #redo{
   padding: 10px;
 }
 
-#totalBuyList{
+#totalBuyList, #withdrawFromBalance, #newBalance{
   border-top: 1px black solid;
   padding-bottom: 20px;
   padding-top: 10px;
