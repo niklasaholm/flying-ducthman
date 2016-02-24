@@ -23,13 +23,16 @@ function filterDrinks(eco, kosch) {
 }
 
 function searchDrinks(str) {
-  document.getElementById("searchBox").value = "";
+  //document.getElementById("searchBox").value = "";
   drinks = [];
   drinksInfo = beerInfoList2.filter(function(item) {
-    if (item.namn.toLowerCase().indexOf(str.toLowerCase()) > -1) {
+    word=item.namn.toLowerCase().split(" ");
+    for (i in word){
+    if (word[i].search(eval("/^"+str.toLowerCase()+"/"))>-1) {
       return true;
     }
-    return false;
+  }
+  return false;
   });
 
   for (var i = 0; i < drinksInfo.length; i++) {

@@ -39,7 +39,7 @@ body {
 @media (min-width: 768px) {
   .sidebar-left {
     position: fixed;
-    top: 51px;
+    top: 81px;
     bottom: 0;
     left: 0;
     z-index: 1;
@@ -51,6 +51,30 @@ body {
     background-color: #f5f5f5;
     font-variant: bold;
   }
+}
+
+.beerCategory{
+  display:none;
+}
+@media (min-width: 768px) {  
+.beerCategory{
+  display: block;
+  background-color: #cbcbcb;
+  text-decoration: none;
+  /*padding-top: 10px;*/
+  padding-left: 5px;
+  position:fixed;
+  height:30px;
+  top:50px;
+  left: 0;
+  z-index: 10;
+}
+}
+
+.navbar-inverse>.beerCat>li>a{
+  color:#000;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 #beerList > h4{
@@ -274,10 +298,6 @@ font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
 
 .spanLeft{
   float:left;
-}
-
-.addPadding{
-  padding: 10px;
 }
 
 #buy, #undo, #redo{

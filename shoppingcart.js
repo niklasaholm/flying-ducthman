@@ -214,13 +214,15 @@ function beforeBuy(){
     $("#buyList").html($(".shopping-cart-item").clone());
     $("#totalBuyList").html($("#TOTAL").clone());
     if($("#userBalance").text()!=""){
-        $("#finalizeTransac").attr("disabled",false);
+        $("#finalizeTransac").text("BUY");
+        $("#finalizeTransac").attr("onclick","alert('Transaction of '+total+' £ done!');");
         var balance= $("#userBalance").html();
         $("#withdrawFromBalance").html("Balance: "+balance+ " £");
 
         $("#newBalance").html("New Balance: "+ (1*balance-1*total) +" £");
     }else{
-        $("#finalizeTransac").attr("disabled",true);
+        $("#finalizeTransac").text("LOGIN");
+        $("#finalizeTransac").attr("onclick","$('#loginModal').modal('show');");
         $("#withdrawFromBalance").html("Please login to continue...");
     }
 

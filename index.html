@@ -68,19 +68,16 @@
             <!--<li><a id="inout" status="OUT" >Sign In</a></li>-->
             <!--<li><a id="userAnchor"></a></li>-->
           </ul>
-          <form class="navbar-form navbar-right">
-              <input id="searchBox" type="text" class="form-control" placeholder="Search..."></input>
-              <button type="button" onclick="searchDrinks(searchBox.value)" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-            </form>
+              <input id="searchBox" type="search" oninput="searchDrinks(searchBox.value)" class="navbar-form navbar-right form-control" placeholder="Search...">
           <ul class="nav navbar-nav navbar-left">
             <!--<li><a href="#beers">Beers</a></li>
             <li><a href="#ciders">Ciders</a></li>
             <li><a href="#wines">Wines</a></li>
-            <li><a href="#nonalc">Non-Alcohol</a></li>-->
+            <li><a href="#nonalc">Non-Alcohol</a></li>
             <li><a onclick="searchDrinks('')" href="#beers">Beers</a></li>
             <li><a onclick="searchDrinks('')" href="#ciders">Ciders</a></li>
             <li><a onclick="searchDrinks('')" href="#wines">Wines</a></li>
-            <li><a onclick="searchDrinks('')" href="#nonalc">Non-Alcohol</a></li>
+            <li><a onclick="searchDrinks('')" href="#nonalc">Non-Alcohol</a></li>-->
           </ul>
         </div>
       </div>
@@ -88,6 +85,14 @@
 
     <div class="container-fluid">
       <div class="row">
+        <div class="col-sm-3 col-md-3 navbar-inverse beerCategory">
+          <ul class="nav navbar-nav beerCat">
+            <li><a href="#beers">Beers</a></li>
+            <li><a href="#ciders">Ciders</a></li>
+            <li><a href="#wines">Wines</a></li>
+            <li><a href="#nonalc">0%</a></li>
+          </ul>
+          </div>
         <div id="beerList" class="col-sm-3 col-md-3 sidebar-left">
           <!-- Here comes the beer list from the JS code-->
         </div>
