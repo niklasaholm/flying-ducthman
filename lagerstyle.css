@@ -1,0 +1,128 @@
+.lager {
+    margin-left: auto;
+    margin-right: auto;
+    border: solid black 2px;
+}
+
+.lager td{
+    height: 50px;
+    font-size: 20px;
+    /*border: dotted black 1px;*/
+}
+
+.lager th{
+    border: dotted black 1px;
+}
+
+.beerCount {
+    width: 40px;
+}
+
+.beerName {
+    width: 260px;
+}
+
+.chars td {
+    height: 50px;
+    font-family: Verdana;
+    font-size: 24px;
+}
+
+.chars th {
+    height: 54px;
+}
+
+
+.divlager {
+    width: 300px;
+    height: 100%;
+}
+
+.divlager p {
+    font-family: Verdana;
+    font-size: 18px;
+}
+
+.divchar {
+    width: 50px;
+    height: 100%;
+}
+
+.divchar td{
+    height: 50px;
+    width: 100%;
+    /*border: solid black 1px;*/
+    text-align: right;
+}
+
+#checkDiv {
+    border: solid black 1px;
+    margin-right: 30%;
+    margin-left: 70%;
+    height: 200px;
+    width: 400px;
+}
+
+#emptyCheck {
+    height: 50px;
+    width: 50px;
+    vertical-align: middle;
+}
+
+form {
+    font-family: Verdana;
+    font-size: 24px;
+}
+
+#lagercontainer {
+    /*border: dashed purple 1px;*/
+    height: 100%;
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#divchar0 {
+    /*border: dotted darkblue 1px;*/
+    float: left;
+}
+
+#divlager0 {
+    /*border: dotted darkblue 1px;*/
+    float: left;
+}
+
+#divchar1 {
+    /*border: dotted darkblue 1px;*/
+    float: left;
+}
+
+#divlager1 {
+    /*border: dotted darkblue 1px;*/
+    float: left;
+}
+
+#divchar2 {
+    /*border: dotted darkblue 1px;*/
+    float: left;
+}
+
+#divButton {
+    position: absolute;
+    margin-left: 80%;
+    margin-top: 40%;
+}
+
+.addBev {
+    height: 140px;
+    width: 140px;
+    background-color: chartreuse;
+    border: solid black 2px;
+}
+
+.buyBev {
+    height: 140px;
+    width: 140px;
+    background-color: red;
+    border: solid black 2px;
+}
