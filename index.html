@@ -51,7 +51,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#filter" data-toggle="modal" data-target="#filterModal">Filter</a>
+            <li><a href="#filter" data-toggle="modal" data-target="#filterModal" >Filter</a></li>
             <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" aria-controls="navbar">
     <span class="glyphicon glyphicon-user"></span> 
@@ -69,15 +69,19 @@
             <!--<li><a id="userAnchor"></a></li>-->
           </ul>
               <input id="searchBox" type="search" oninput="searchDrinks(searchBox.value)" class="navbar-form navbar-right form-control" placeholder="Search...">
-          <ul class="nav navbar-nav navbar-left">
-            <!--<li><a href="#beers">Beers</a></li>
-            <li><a href="#ciders">Ciders</a></li>
-            <li><a href="#wines">Wines</a></li>
-            <li><a href="#nonalc">Non-Alcohol</a></li>
-            <li><a onclick="searchDrinks('')" href="#beers">Beers</a></li>
-            <li><a onclick="searchDrinks('')" href="#ciders">Ciders</a></li>
-            <li><a onclick="searchDrinks('')" href="#wines">Wines</a></li>
-            <li><a onclick="searchDrinks('')" href="#nonalc">Non-Alcohol</a></li>-->
+          <ul class="nav navbar-nav navbar-left admin">
+            <li><a href="#inventoryModal">Inventory</a></li>
+            <li><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" aria-controls="navbar">Users</a>
+              <ul class="dropdown-menu" >
+      <!--New account, delete account edit account, add credit.-->
+      <li><a data-toggle="modal" data-target="#newAccountModal">New account</a></li>
+      <li><a data-toggle="modal" data-target="#editAccountModal">Edit account</a></li>
+      <li><a data-toggle="modal" data-target="#deleteAccountModal">Delete account</a></li>
+      <li class="divider"></li>
+      <li><a data-toggle="modal" data-target="#addCreditModal">Add Credit</a></li>
+    </ul>
+            </li>
+            <li><a href="#allPayementsModal">Payements</a></li>
           </ul>
         </div>
       </div>
@@ -97,7 +101,7 @@
           <!-- Here comes the beer list from the JS code-->
         </div>
         <div class="col-sm-3 col-md-3 shop title">
-            <h4 class="shopping-cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>    Shopping Cart</h2>
+            <h4 class="shopping-cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>    Order</h2>
           </div>
         <div id="shoppingcart" class="col-sm-3 col-md-3 shop sidebar-right">
           <!--<div class="title">
@@ -106,7 +110,7 @@
 
           <!-- Here comes beers added to the shopping cart-->
           <ul class="nav nav-sidebar shopping-cart-item">
-            <li id="hintToRemove"><a>Drop your beers here!</a></li>
+            <li id="hintToRemove"><a>Place your beers here!</a></li>
           </ul>
           <!--<div class="cartFooter">
             <div class="total">
@@ -146,6 +150,8 @@
           </div>
           
 
+        </div>
+        <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 favoriteBeers">
         </div>
         <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 main">
           <h1 class="page-header"></h1>
@@ -212,7 +218,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            <h4 class="modal-title" id="myModalLabel">Choose filter: </h4>
           </div>
           <div class="modal-body">
             Ecological   <input type="checkbox" id="eco">

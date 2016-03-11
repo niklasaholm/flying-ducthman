@@ -1,3 +1,31 @@
+$(document).on('click touchstart', '.qtyplus', function(e){
+    e.preventDefault();
+    var $this = $(this).parent().next().next();
+    var id=$this.parent().attr("id").substring(4);
+    var price=$this.attr("p");
+    addToCart(id,price,1);
+    //adds the element to the undoList
+    oldList.push({"id":id,"price":price,"quant":1});
+    //clears the redo list
+    $("#redo").attr("disabled",true)
+    newList.length = 0;
+});
+
+$(document).on('click touchstart', '.qtyminus', function(e){
+    e.preventDefault();
+    var $this = $(this).parent().next().next();
+    var id=$this.parent().attr("id").substring(4);
+    var price=$this.attr("p");
+    addToCart(id, price,-1)
+    //adds the element to the undoList
+    oldList.push({"id":id,"price":price,"quant":-1});
+    //clears the redo list
+    $("#redo").attr("disabled",true)
+    newList.length = 0;
+});
+
+
+
 // This button will increase the number of beers (no max at the moment)
 $(document).on('click touchstart', '.btn-plus', function(e){
         // Stop acting like a button
@@ -83,6 +111,8 @@ $(document).on("drop","#shoppingcart",function(e){
     var quant=$('#'+id+".dragMe").attr('quant');
 
     addToCart(id,price,quant);
+    //adds the element to the undoList
+    oldList.push({"id":id,"price":price,"quant":quant});
     //clears the redo function
     $("#redo").attr("disabled",true)
     newList.length = 0;
@@ -97,6 +127,8 @@ $(document).on("click touchstart","#addToCartSmallScreen",function(e){
     var quant=$('#'+id+".dragMe").attr('quant');
 
     addToCart(id,price,quant);
+    //adds the element to the undoList
+    oldList.push({"id":id,"price":price,"quant":quant});
     //clears the redo function
     $("#redo").attr("disabled",true)
     newList.length = 0;
@@ -119,6 +151,7 @@ function newToCart(id,price,quant){
     itemToChange.text(quant+" x "+price+" £ = " + (quant*price).toFixed(2)+" £");
     itemToChange.attr("q",quant);
     itemToChange.attr("p",price);
+    itemToChange.parent().prepend("<div class='spanRight cartitemButton'><button type='button' value='-' class='qtyminus'>-</button>  <button type='button' value='+' class='qtyplus'>+</button></div>");
     $(".shopping-cart-item").append(item);
     shoppingcartList.push("Beer"+id);
     total+=1*(quant*price);
@@ -143,26 +176,32 @@ function updateCart(item, quant){
 
 //add a beer to the cart. Sets its price and quantity. 
 function addToCart(id,price,quant){
-    oldList.push({"id":id,"price":price,"quant":quant});
     $("#undo").attr("disabled",false);
     $("#buy").attr("disabled",false);
     if ($.inArray("Beer"+id,shoppingcartList)>-1){
         item=$("#Beer"+id);
-        updateCart(item,quant);
+        itemQuant=item.find(".price").attr("q");
+        if (1*itemQuant + 1*quant <=0){
+            total+=1*(quant*price);
+            $("#TOTAL").text("Total: "+total.toFixed(2)+ " £");
+            deleteFromCart(item,shoppingcartList.indexOf("Beer"+id));
+        }else{
+            updateCart(item, (1*quant));
+        }
     }else{
         newToCart(id,price,quant);
     }
 }
 
 //deletes an item from cart
-function deleteFromCart(item){
+function deleteFromCart(item,pos){
     item.remove();
-    shoppingcartList.pop();
+    shoppingcartList.splice(pos,1);
 }
 
 //removes the specified amout of a beer item from cart. 
 //deletes it if 0.
-function removeFromCart(id, price, quant){
+/*function removeFromCart(id, price, quant){
     item=$("#Beer"+id);
     itemQuant=item.find(".price").attr("q");
     console.log(itemQuant)
@@ -173,24 +212,27 @@ function removeFromCart(id, price, quant){
     }else{
         updateCart(item, -(1*quant));
     }
-}
+}*/
 
 function undo(){
-    $("#redo").attr("disabled",false)
+    $("#redo").attr("disabled",false);
     undoItem = oldList.pop();
-    if(oldList.length==0){
-        $("#undo").attr("disabled",true)
-        $("#buy").attr("disabled",true)
-    }
+    console.log(oldList)
     newList.push(undoItem);
-    removeFromCart(undoItem.id, undoItem.price, undoItem.quant);
+    addToCart(undoItem.id, undoItem.price, -undoItem.quant);
+    if(oldList.length==0){
+        $("#undo").attr("disabled",true);
+        $("#buy").attr("disabled",true);
+    }
 }
 
 function redo(){ 
     redoItem = newList.pop();
     if(newList.length==0){
-    $("#redo").attr("disabled",true)
+    $("#redo").attr("disabled",true);
     }
+    //adds the element to the undoList
+    oldList.push({"id":redoItem.id,"price":redoItem.price,"quant":redoItem.quant});
     addToCart(redoItem.id, redoItem.price, redoItem.quant);
 }
 
@@ -202,6 +244,7 @@ function drawBeer(x){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     var img = new Image;
     img.src ="Pictures/beer.png";
+    if(x>=10){x=10;};
     for (i=0;i<x;i++){
         ctx.drawImage(img,i*25,0, 75, 75 * img.height / img.width);
     }
@@ -212,6 +255,7 @@ function beforeBuy(){
     $("#withdrawFromBalance").html("");
     $("#newBalance").html("");
     $("#buyList").html($(".shopping-cart-item").clone());
+    $("#buyList").find(".cartitemButton").hide();
     $("#totalBuyList").html($("#TOTAL").clone());
     if($("#userBalance").text()!=""){
         $("#finalizeTransac").text("BUY");

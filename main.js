@@ -88,7 +88,6 @@ var my_url="http://pub.jamaica-inn.net/fpdb/api.php?username=jorass&password=jor
   $('#p4').text(beer.varugrupp);
   $(".dragMe").attr('name',beer.namn);
   $(".dragMe").attr('price',beer.prisinklmoms);
-  drawBeer(1);
 });
 }
 
@@ -98,8 +97,11 @@ function checkLogin(){
   var type=getCookie("type");
   //console.log(customer);
   if (customer!="") {
-    if(type=="admin"){
-      //TODO
+    console.log(type);
+    if(type=="Admin"){
+      $(".admin").show();
+    }else{
+      $(".admin").hide();
     }
     $("#userType").text(type);
     $("#userType").append('<span class="glyphicon glyphicon-menu-hamburger spanRight"></span>');
@@ -108,8 +110,10 @@ function checkLogin(){
     $("#inout").text("Sign Out");
     $("#inout").attr("status","IN");
     $(".hide-if-out").show();
+    
     getPayementInfo(customer);
   }else{
+    $(".admin").hide();
     $("#userType").text("Guest");
     $("#userName").text("");
     $("#userBalance").text("");
@@ -147,19 +151,20 @@ $(document).on('click touchstart', '.beeritem', function () {
     $(".dragMe").show();
     $("#addToCartSmallScreen").hide();
   }
-    drawBeer(1);
     getBeerInfo(this.id);
     if($(this).find(".price").attr("q")<0){
+      drawBeer(0);
       $(".input-number").val("Sold Out");
-      $(".dragMe").draggable=false;
+      $(".dragMe").attr( 'draggable', 'false' );
       $(".main").show();
       $(".btn-plus").attr('disabled', true);
       $(".btn-minus").attr('disabled', true);
     }else{
+    drawBeer(1);
     $(".btn-plus").attr('disabled', false);
     $(".main").show();
     $(".input-number").val(1);
-    //drawBeer($(".input-number").val());
+    $(".dragMe").attr( 'draggable', 'true' );
     $(".dragMe").attr('id',this.id);
     $(".dragMe").attr('quant',$(".input-number").val());
   }
