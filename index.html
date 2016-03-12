@@ -25,6 +25,7 @@
     <script type="text/javascript" src="shoppingcart.js"></script>
     <script type="text/javascript" src="signin.js"></script>
     <script type="text/javascript" src="filter.js"></script>
+    <script type="text/javascript" src="translation.js"></script>
   </head>
 
   <body>
@@ -91,9 +92,9 @@
       <div class="row">
         <div class="col-sm-3 col-md-3 navbar-inverse beerCategory">
           <ul class="nav navbar-nav beerCat">
-            <li><a href="#beers">Beers</a></li>
-            <li><a href="#ciders">Ciders</a></li>
-            <li><a href="#wines">Wines</a></li>
+            <li><a class="lang" tkey=beers href="#beers">Beers</a></li>
+            <li><a class="lang" tkey=ciders href="#ciders">Ciders</a></li>
+            <li><a class="lang" tkey=wines href="#wines">Wines</a></li>
             <li><a href="#nonalc">0%</a></li>
           </ul>
           </div>
@@ -101,7 +102,7 @@
           <!-- Here comes the beer list from the JS code-->
         </div>
         <div class="col-sm-3 col-md-3 shop title">
-            <h4 class="shopping-cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>    Order</h2>
+          <h4 class="shopping-cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span><span class="lang" tkey=order>Order</span></h4>
           </div>
         <div id="shoppingcart" class="col-sm-3 col-md-3 shop sidebar-right">
           <!--<div class="title">
@@ -110,7 +111,7 @@
 
           <!-- Here comes beers added to the shopping cart-->
           <ul class="nav nav-sidebar shopping-cart-item">
-            <li id="hintToRemove"><a>Place your beers here!</a></li>
+            <li id="hintToRemove"><a class="lang" tkey=placeDrinks>Place your drinks here!</a></li>
           </ul>
           <!--<div class="cartFooter">
             <div class="total">
@@ -133,7 +134,7 @@
 
           <div class="col-sm-3 col-md-3 shop cartFooter">
             <div class="total">
-            <span class="spanLeft"><h4 id="TOTAL">Total:</h4></span>
+            <span class="spanLeft"><h4 id="TOTAL" class="lang" tkey=total>Total:</h4></span>
             </div>
             <div class="undoRedo">
             <span class="spanLeft">
@@ -145,7 +146,7 @@
             </button>
             </span>
             <span class="spanRight">
-              <button id="buy" onclick="beforeBuy();" data-toggle="modal" data-target="#buyBeers" disabled="disabled">BUY <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
+              <button id="buy" onclick="beforeBuy();" data-toggle="modal" data-target="#buyBeers" disabled="disabled"><span class="lang" tkey=buy BUY</span> <span class="glyphicon glyphicon-check" aria-hidden="true"></span></button>
             </span>
           </div>
           
@@ -159,12 +160,12 @@
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
               <img src="Pictures/pound.png" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4 id="p1">Price</h4>
+              <h4 id="p1" class="lang" tkey=price>Price</h4>
               <span class="text-muted"></span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
               <img src="Pictures/procent.png" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4 id="p2">Alcohol</h4>
+              <h4 id="p2" class="lang" tkey=alcohol>Alcohol</h4>
               <span class="text-muted"></span>
             </div>
           <!--</div>
@@ -177,6 +178,7 @@
             <div  class="col-xs-6 col-sm-3 placeholder">
               <img src="Pictures/drink.png" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
               <h4 id="p4">Type</h4>
+
               <span class="text-muted"></span>
             </div>
           </div>
