@@ -16,9 +16,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
     <link href="signin.css" rel="stylesheet">
+    <link href="lagertest.html">
     <!-- Custom scripts for our webapp-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lagerscript.js"></script>
     <script type="text/javascript" src="cookieHandler.js"></script>
     <script type="text/javascript" src="offlineBeerInfo.js"></script>
     <script type="text/javascript" src="main.js"></script>
@@ -70,7 +72,7 @@
           </ul>
               <input id="searchBox" type="search" oninput="searchDrinks(searchBox.value)" class="navbar-form navbar-right form-control" placeholder="Search...">
           <ul class="nav navbar-nav navbar-left admin">
-            <li><a href="#inventoryModal">Inventory</a></li>
+            <li><a href="#inventoryModal" id="inventoryButton">Inventory</a></li>
             <li><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" aria-controls="navbar">Users</a>
               <ul class="dropdown-menu" >
       <!--New account, delete account edit account, add credit.-->
@@ -307,7 +309,132 @@
       </div>
     </div>
   </div>
-  
+
+  <!-- Inventory modal popup -->
+    <div class="modal fade" id="inventoryModal" role="dialog" aria-labelledby="buyLabel" aria-hidden="true">
+      <div class="modal-inv">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title" id="invModLabel">Inventory
+            </h3>
+          </div>
+          <div class="inv-modal-body">
+            <!--<iframe id="ilagerframe" src="lagertest.html" style="zoom:0.50" width="99.6%" height="1000" frameborder="0"></iframe>
+          -->
+            <div id="lagercontainer">
+              <div id="divchar0" class="divchar">
+                <table id="chars0" class="chars">
+                  <thead>
+                  <tr>
+                    <th>
+                      <p></p>
+                    </th>
+                    <th>
+                      <p></p>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+              <div id="divlager0" class="divlager">
+                <table id="lager0" class="lager">
+                  <thead>
+                  <tr>
+                    <th>
+                      <p>Name</p>
+                    </th>
+                    <th>
+                      <p>#</p>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="beers">
+
+                  </tbody>
+                </table>
+              </div>
+              <div id="divchar1" class="divchar">
+                <table id="chars1" class="chars">
+                  <thead>
+                  <tr>
+                    <th>
+                      <p></p>
+                    </th>
+                    <th>
+                      <p></p>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+              <div id="divlager1" class="divlager">
+                <table id="lager1" class="lager">
+                  <thead>
+                  <tr>
+                    <th>
+                      <p>Name</p>
+                    </th>
+                    <th>
+                      <p>#</p>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="beers">
+
+                  </tbody>
+                </table>
+              </div>
+              <div id="divchar2" class="divchar">
+                <table id="chars2" class="chars">
+                  <thead>
+                  <tr>
+                    <th>
+                      <p></p>
+                    </th>
+                    <th>
+                      <p></p>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div id="checkDiv">
+              <form action="">
+                <input id="emptyCheck" type="checkbox" name="onlyEmpty" value="false">Out of stock<br>
+                <!-- <input type="checkbox" name="vehicle" value="Car">I have a car !-->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!--  <div id="inventoryModal" class="modal-hide-fade" tabindex="-1" role="dialog">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3>Dialog</h3>
+        </div>
+        <div class="modal-body">
+          <iframe src="lagertest.html" style="zoom:0.60" width="99.6%" height="250" frameborder="0"></iframe>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal">OK</button>
+        </div>
+      </div>  -->
+
   </body>
 
     <!-- Bootstrap core JavaScript

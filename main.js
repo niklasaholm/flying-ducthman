@@ -113,7 +113,7 @@ function checkLogin(){
     
     getPayementInfo(customer);
   }else{
-    $(".admin").hide();
+    $(".admin").show(); //CHANGE BACK to hide()
     $("#userType").text("Guest");
     $("#userName").text("");
     $("#userBalance").text("");
@@ -169,6 +169,18 @@ $(document).on('click touchstart', '.beeritem', function () {
     $(".dragMe").attr('quant',$(".input-number").val());
   }
 });
+
+$(document).on('click', '#inventoryButton', function () {
+  //$("#ilagerframe").attr("src", $("#ilagerframe").attr("src"));
+  //$( '#ilagerframe' ).attr( 'src', function ( i, val ) { return val; });
+  //var frame = document.getElementById("ilagerframe");
+  //var firstTable = frame.contentWindow.document.getElementsByTagName("table")[0];
+  //var tableNode = document.importNode(firstTable, true);
+  //updateInventoryFoReal(firstTable);
+  $("#inventoryModal").modal({show:true});
+});
+
+
 
 
 

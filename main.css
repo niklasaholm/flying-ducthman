@@ -220,6 +220,7 @@ font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
  * Main content (BeerInfo)
  */
 
+
 .main {
   padding: 20px;
   display: none;
@@ -288,6 +289,19 @@ font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
   /*background-color: #cbcbcb;*/
 }
 
+.modal-fade {
+  height: 100%;
+}
+
+.modal-inv {
+  width: 90%;
+  height: 590%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+}
+
+
 .modal-dialog {
     width: 300px;
 }
@@ -323,3 +337,141 @@ font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
   z-index: 100;
 }
 
+/******  inventory CSS  ******/
+
+
+#invModLabel {
+  font-size: 50px;
+  text-align: center;
+}
+
+.modal-header button {
+  font-size: 60px;
+}
+
+.lager {
+  margin-left: auto;
+  margin-right: auto;
+  border: solid black 2px;
+}
+
+.lager td{
+  height: 50px;
+  font-size: 20px;
+  vertical-align: middle;
+  border: dotted black 1px;
+}
+
+.lager th{
+  font-size: 20px;
+  height: 24px;
+  border: solid black 2px;
+}
+
+.beerCount {
+  width: 40px;
+}
+
+.beerName {
+  width: 260px;
+}
+
+.chars td {
+  height: 50px;
+  width: 100%;
+  font-family: Verdana;
+  font-size: 24px;
+  text-align: right;
+}
+
+.chars th {
+  height: 34px;
+}
+
+
+.divlager {
+  width: 300px;
+  height: 100%;
+}
+
+.divlager p {
+  font-family: Verdana;
+  font-size: 18px;
+}
+
+.divchar {
+  width: 50px;
+  height: 100%;
+}
+
+.divchar td{
+  height: 50px;
+  width: 100%;
+  /*border: solid black 1px;*/
+  text-align: right;
+}
+
+#bigDiv {
+  height: 100%;
+  width: 100%;
+  border: double green 3px;
+}
+
+#checkDiv {
+  position: absolute;
+  left: 10%;
+  top: 2%;
+  /*margin-right: 10%;
+  margin-left: 90%;*/
+  height: 200px;
+  width: 200px;
+}
+
+#emptyCheck {
+  height: 50px;
+  width: 50px;
+  vertical-align: middle;
+}
+
+form {
+  font-family: Verdana;
+  font-size: 24px;
+}
+
+#lagercontainer {
+  /*border: dashed purple 1px;*/
+  /*float: left;*/
+  height: 100%;
+  width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#divchar0 {
+  /*border: dotted darkblue 1px;*/
+  float: left;
+}
+
+#divlager0 {
+  /*border: dotted darkblue 1px;*/
+  float: left;
+}
+
+#divchar1 {
+  /*border: dotted darkblue 1px;*/
+  float: left;
+}
+
+#divlager1 {
+  /*border: dotted darkblue 1px;*/
+  float: left;
+}
+
+#divchar2 {
+  /*border: dotted darkblue 1px;*/
+  float: left;
+}
+
+.inv-modal-body {
+  height: 6000px;
+}

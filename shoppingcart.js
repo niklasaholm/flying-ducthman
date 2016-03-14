@@ -259,14 +259,31 @@ function beforeBuy(){
     $("#totalBuyList").html($("#TOTAL").clone());
     if($("#userBalance").text()!=""){
         $("#finalizeTransac").text("BUY");
-        $("#finalizeTransac").attr("onclick","alert('Transaction of '+total+' £ done!');");
+        //$("#finalizeTransac").attr("onclick", "alert('Transaction of '+total+' £ done!');")
+
+        /* UPDATE INVENTORY */
+        $("#finalizeTransac").on("click", function() {
+            for (var i = 0; i < shoppingcartList.length; i++) {
+                var currentItem = shoppingcartList[i];
+                var currentId = currentItem.substring(4);
+                item=$("#Beer"+currentId);
+                var currentQuant = item.find(".price").attr("q");
+                $(function() {
+                    updateStock(currentId, currentQuant);
+                });
+
+            }
+            console.log("stock updated");
+            alert('Transaction of '+total+' £ done!');
+        });
+
         var balance= $("#userBalance").html();
         $("#withdrawFromBalance").html("Balance: "+balance+ " £");
 
         $("#newBalance").html("New Balance: "+ (1*balance-1*total) +" £");
     }else{
         $("#finalizeTransac").text("LOGIN");
-        $("#finalizeTransac").attr("onclick","$('#loginModal').modal('show');");
+        $("#finalizeTransac").attr("onclick", "$('#loginModal').modal('show');");
         $("#withdrawFromBalance").html("Please login to continue...");
     }
 
